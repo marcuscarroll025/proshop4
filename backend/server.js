@@ -4,7 +4,8 @@ import dotenv from "dotenv";
 dotenv.config();
 import connectDB from "./config/db.js";
 // import products
-import products from "./data/products.js";
+
+import productRoutes from "./routes/productRoutes.js";  
 
 // Connect to mongoDB
 connectDB(); 
@@ -24,18 +25,10 @@ app.get("/", (req, res) => {
     res.send("API is running");
 });
 
-// Route  for all products.
-app.get("/api/products", (req, res) => { 
-    res.json(products);
 
-})
+app.use("/api/products", productRoutes);
 
-// Create a route for a single product.
 
-app.get("/api/products/:id", (req, res) => {
-    const product = products.find(p => p._id === req.params.id);
-    res.json(product);
-})
 
 
 // Start the server by listening on the port
